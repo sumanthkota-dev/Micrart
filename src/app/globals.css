@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
+/* === Color Palette: Artistic Warm Light === */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-background: #FAF8F6; /* Warm off-white base */
+  --color-surface: #FFFFFF;
+  --color-surface-variant: #F3EEEA;
+
+  /* Text */
+  --color-on-background: #1C1C1C;
+  --color-on-surface: #2C2C2C;
+  --color-muted: #6B6B6B;
+
+  /* Accents – watercolor inspired */
+  --color-primary: #A88DDA; /* Soft lavender */
+  --color-secondary: #E7A6A1; /* Blush pink */
+  --color-tertiary: #7DB7AE; /* Muted teal */
+
+  /* Shadows */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  /* Fonts */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* === Body === */
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* === Headings === */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+/* === Links === */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+a:hover {
+  color: var(--color-secondary);
+  transform: translateY(-1px);
+}
+
+/* === Buttons === */
+button {
+  font-family: var(--font-body);
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.6rem 1.4rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-soft);
+}
+button:hover {
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow-hover);
+}
+
+/* === Inputs === */
+input, textarea, select {
+  background: var(--color-surface);
+  border: 1px solid #E6E0DC;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(168, 141, 218, 0.2);
+  outline: none;
+}
+
+/* === Cards === */
+.card {
+  background: var(--color-surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--color-surface-variant);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* === Section Layouts === */
+section {
+  padding: 4rem 1.5rem;
+}
+@media (min-width: 768px) {
+  section {
+    padding: 6rem 2rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* === Dividers / Subtle Lines === */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+  margin: 2rem 0;
+}
+
+/* === Tag / Chip Style === */
+.chip {
+  display: inline-block;
+  background-color: var(--color-tertiary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+.chip:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* === Footer === */
+footer {
+  background: var(--color-surface);
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-surface-variant);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+/* globals.css */
+.toast-modern {
+  background: rgba(255, 250, 246, 0.95); /* slightly translucent warm off-white */
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px); /* soft glassy effect */
+  border: 1px solid var(--color-surface-variant);
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.toast-modern:hover {
+  transform: translateY(-2px);
 }

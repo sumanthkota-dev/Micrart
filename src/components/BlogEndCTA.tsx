@@ -24,7 +24,7 @@ const ctas = [
     icon: Mail,
     colorVar: 'var(--color-tertiary)',
     hoverVar: 'var(--color-secondary)',
-    action: () => { window.location.href = 'mailto:subscribe@yourblog.com'; },
+    action: () => { window.location.href = 'mailto:micrart.shop@gmail.com'; },
   },
   {
     label: 'Shop / Buy Prints',
@@ -38,7 +38,7 @@ const ctas = [
     icon: Upload,
     colorVar: 'var(--color-secondary)',
     hoverVar: 'var(--color-primary)',
-    action: () => { window.location.href = 'mailto:share@yourblog.com'; },
+    action: () => { window.location.href = 'mailto:micrart.shop@gmail.com'; },
   },
   {
     label: 'Watch the Carving Process',

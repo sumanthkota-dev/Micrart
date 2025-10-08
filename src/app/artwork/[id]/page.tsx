@@ -12,21 +12,25 @@ interface Artwork {
   created_at?: string;
 }
 
-interface Props {
+interface PageProps {
   params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default async function ArtworkPage({ params }: Props) {
+
+// src/app/artwork/[id]/page.tsx
+
+export default async function ArtworkPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const { data: artwork, error } = await supabase
     .from('artworks')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !artwork)
     return <div className="text-center p-8">Artwork not found</div>;
 
-  // Format date on the server (avoid hydration mismatch)
   const formattedDate = artwork.created_at
     ? new Date(artwork.created_at).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -42,8 +46,8 @@ export default async function ArtworkPage({ params }: Props) {
         artwork={{
           ...artwork,
           formattedDate,
-          cover_image: artwork.image_url, // consistent naming
-          html_content: artwork.description || '', // optional description as HTML
+          cover_image: artwork.image_url,
+          html_content: artwork.description || '',
         }}
       />
       <Footer />

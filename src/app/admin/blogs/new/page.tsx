@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter, usePathname } from 'next/navigation';
@@ -7,10 +6,13 @@ import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import Cropper from 'react-easy-crop';
 import { Upload, Loader2, X } from 'lucide-react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
 import getCroppedBlogImg from '@/lib/getCroppedBlogImg';
-import AdminLayout from '@/components/AdminLayout'; // <-- Import AdminLayout
+import AdminLayout from '@/components/AdminLayout';
+import 'react-quill-new/dist/quill.snow.css';
+export const dynamic = 'force-dynamic';
+
+import dynamicImport from 'next/dynamic';
+const ReactQuill = dynamicImport(() => import('react-quill-new'), { ssr: false });
 
 const aspectRatios = [
   { label: '16:9', value: 16 / 9 },

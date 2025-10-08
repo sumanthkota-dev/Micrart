@@ -4,18 +4,14 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogDetailClient from '@/components/BlogDetailClient';
 
-interface Props {
-  params: { slug: string };
-}
-
 interface BlogPost {
   id: string;
   title: string;
   content: string;
   cover_image_url?: string;
   created_at: string;
-  author?: string;     // Optional if you have author info
-  tags?: string[];     // Optional tags
+  author?: string;
+  tags?: string[];
   slug: string;
 }
 
@@ -30,14 +26,34 @@ async function getBlog(slug: string) {
   return { data, error };
 }
 
-export default async function BlogPage({ params }: Props) {
-  const slug = params.slug;
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  // ✅ Await the promise for Next.js 15+ App Router compatibility
+  const { slug } = await params;
   const { data: blog, error } = await getBlog(slug);
 
-  if (error) return <div className="text-center p-8">Failed to fetch blog</div>;
-  if (!blog) return <div className="text-center p-8">Blog not found</div>;
+  if (error)
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF8F6] text-[#2E2A27]">
+        <Navbar />
+        <div className="text-center p-8">Failed to fetch blog</div>
+        <Footer />
+      </div>
+    );
 
-  // Format date on the server to avoid hydration mismatch
+  if (!blog)
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF8F6] text-[#2E2A27]">
+        <Navbar />
+        <div className="text-center p-8">Blog not found</div>
+        <Footer />
+      </div>
+    );
+
+  // ✅ Safe date formatting
   const formattedDate = new Date(blog.created_at).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
